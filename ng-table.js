@@ -641,12 +641,15 @@ app.directive('ngTable', ['$compile', '$q', '$parse',
                             pagination: (attrs.templatePagination ? attrs.templatePagination : 'ng-table/pager.html')
                         };
                         var headerTemplate = thead.length > 0 ? thead : angular.element(document.createElement('thead')).attr('ng-include', 'templates.header');
+                        //Hack for ngTable pagination for angularjs v1.0
+                        //Count the number of the columns in the table because columns.length is not working well
+                        var ngTableColumNr = element.find('thead tr th').length;
                         var paginationRow = angular.element(document.createElement('tr'))
                                 .append(angular.element(document.createElement('td'))
                                     .attr({
                                         'ng-table-pagination': 'params',
                                         'template-url': 'templates.pagination',
-                                        'colspan': columns.length
+                                        'colspan': ngTableColumNr
                                     })),
                             paginationTemplate = angular.element(document.createElement('tfoot')).append(paginationRow);
 
