@@ -395,6 +395,11 @@ app.factory('NgTableParams', ['$q', '$log', function ($q, $log) {
             var $defer = $q.defer(),
                 self = this;
 
+            //Do not reload if not initialized
+            if (!settings.$scope) {
+                return;
+            }
+
             settings.$loading = true;
             if (settings.groupBy) {
                 settings.getGroups($defer, settings.groupBy, this);
